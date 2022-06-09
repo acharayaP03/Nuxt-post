@@ -1,5 +1,6 @@
 # nuxt-post
 
+This is a Nuxt V2 project using bootstrap template. Very simple blog post application that displays the power of Nuxt.
 ## Build Setup
 
 ```bash
