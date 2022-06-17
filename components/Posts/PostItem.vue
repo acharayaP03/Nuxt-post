@@ -1,78 +1,120 @@
 <template>
-    <div class="row"
-        v-if="posts"
-    >
-        <div 
-            v-for="post in posts"
-            :key="post._id"
-            class="col-md-4"
-        >
-            <div class="card card-blog">
-                <div 
-                    class="card-img"
-                >
-                    <a href="blog-single.html"><img :src="require(`~/assets/img/${post.blogCover[0].imageUrl}`)" alt="" class="img-fluid"></a>
+    <div class="card card-blog">
+        <div class="card-img">
+            <img :src="require(`~/assets/img/${coverImage}`)" :alt="coverAltDescp" class="img-fluid" />
+        </div>
+        <div class="boxes">
+            <input 
+                id="cb1" 
+                type="checkbox" 
+                name="cb"
+                :checked="isRead" 
+            />
+            <label for="cb1" class="label"></label>
+        </div>
+        <div class="card-body">
+            <div class="card-category-box">
+                <div class="card-category">
+                    <h6 class="category">{{ category }}</h6>
                 </div>
-                <div class="card-body">
-                    <div class="card-category-box">
-                        <div class="card-category">
-                            <h6 class="category">{{ post.category }}</h6>
-                        </div>
-                    </div>
-                    <h3 class="card-title"><a href="blog-single.html">{{ post.title }}</a></h3>
-                    <p class="card-description">
-                        {{ post.description }}
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <div class="post-author">
-                        <a href="#">
-                            <img :src="require(`~/assets/img/${post.authorDetail[0].avatar}`)" alt="" class="avatar rounded-circle">
-                            <span class="author">{{ post.authorDetail[0].name }}</span>
-                        </a>
-                    </div>
-                    <div class="post-date">
-                        <span class="bi bi-clock"></span> 10 min
-                    </div>
-                </div>
+            </div>
+            <h3 class="card-title">
+                <a href="blog-single.html">{{ title }}</a>
+            </h3>
+            <p class="card-description">
+                {{ description }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <div class="post-author">
+                <a href="#">
+                    <img 
+                        :src="require(`~/assets/img/${authorImg}`)" :alt="author"
+                        class="avatar rounded-circle" 
+                    />
+                    <span class="author">{{ author[0] }}</span>
+                </a>
+            </div>
+            <div class="post-date">
+                <span class="bi bi-clock"></span> {{ new Date() | formateDate }}
             </div>
         </div>
     </div>
-    <div
-        class="row m-auto d-block"
-        v-else
-    >
-        <h3 class="text-center">
-            No posts to show
-        </h3>
-    </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
-    name: "PostItem",
-    props:{
-        posts:{
+    name: 'PostItem',
+    props: {
+        title:{
+            type: String,
+            default: 'Title for Card'
+        },
+        category:{
+            type: String,
+            default: 'Post category'
+        },
+        description:{
+            type: String,
+            default: 'Post description'
+        },
+        authorDetail:{
             type: Array,
             default: () => []
-        }
+        },
+        blogCover:{
+            type: Array,
+            default: () => []
+        },
+        isRead:{
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {
+            moment,
         }
+    },
+    computed:{
+        coverImage:{
+            get(){
+                return this.blogCover.map( el => el.imageUrl)
+            }
+        },
+        coverAltDescp(){
+            return this.blogCover.map( el => el.altDescp)
+        },
+        authorImg(){
+            return this.authorDetail.map( el => el.avatar)
+        },
+        author(){
+            return this.authorDetail.map( el => el.name)
+        }
+    },
+    created(){
+        console.log(this.author)
+    },
+    methods: {
+        formateDate(date) {
+            return moment(date).format('LL')
+        },
     },
 }
 </script>
 <style lang="scss" scoped>
-/*--------------------------------------------------------------
-    # Blog
-    --------------------------------------------------------------*/
-@media (min-width: 767px) {
-    .card-blog {
-        margin-bottom: 3rem;
-    }
-}
+$midnight: #2c3e50;
+$wisteria: #8e44ad;
 
 .card-blog {
+    position: relative;
+
+    @media (min-width: 767px) {
+        .card-blog {
+            margin-bottom: 3rem;
+        }
+    }
+
     .card-body {
         position: relative;
     }
@@ -104,6 +146,7 @@ export default {
             margin-bottom: 0;
         }
     }
+
     .card-title {
         font-size: 1.3rem;
         margin-top: 0.6rem;
@@ -116,11 +159,76 @@ export default {
     .post-author {
         display: inline-block;
     }
+
     .post-date {
         color: #4e4e4e;
         display: inline-block;
         float: right;
     }
 
+    .custom-control {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .boxes {
+        margin: auto;
+        padding: 1rem;
+        background: rgba(180, 177, 177, 0.5);
+        border-radius: 50%;
+        border: 1px solid rgba(180, 177, 177, 0.5);;
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        top: 5px;
+        right: 5px;
+
+        /*Checkboxes styles*/
+        input[type="checkbox"] {
+            display: none;
+
+            & + .label {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 20px;
+                font: 14px/20px 'Open Sans', Arial, sans-serif;
+                color: rgb(75, 73, 73);
+                cursor: pointer;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                &:before{
+                    content: '';
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    border: 3px solid #0078ff;;
+                    position: absolute;
+                    left: -10px;
+                    top: -10px;
+                    opacity: .6;
+                    -webkit-transition: all .12s, border-color .08s;
+                    transition: all .12s, border-color .08s;
+                }
+            }
+
+            &:checked + .label:before {
+                width: 10px;
+                top: -10px;
+                left: -5px;
+                border-radius: 0;
+                opacity: 1;
+                border-top-color: transparent;
+                border-left-color: transparent;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        }
+
+    }
 }
 </style>

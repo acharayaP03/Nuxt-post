@@ -18,7 +18,22 @@
             </div>
           </div>
         </div>
-        <PostItem :posts="postsData"/>
+
+        <div class="row">
+          <div
+            v-for="post in postsData"
+            :key="post._id"
+            class="col-md-4">
+            <PostItem 
+              :title="post.title"
+              :category="post.category"
+              :author-detail="post.authorDetail"
+              :blog-cover="post.blogCover"
+              :is-read="post.isRead"
+              :description="post.description"
+            />
+          </div>
+        </div>
       </div>
     </section><!-- End Blog Section -->
   </main><!-- End #main -->
@@ -72,10 +87,11 @@ export default {
                   blogCover: [{
                       imageUrl: 'post-3.jpg',
                       altDescp: 'Web design cover pic'
-                  }]
+                  }],
+                  isRead: false
               },
               {
-                  _id: 'adgfjdgbrewhs234532nafh',
+                  _id: 'adgfjdgbrewh532nafh',
                   category: 'Web Design',
                   description: 'Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.',
                   title: 'See more ideas about Travel',
@@ -89,7 +105,8 @@ export default {
                   blogCover: [{
                       imageUrl: 'post-2.jpg',
                       altDescp: 'Web design cover pic'
-                  }]
+                  }],
+                  idRead: false
               },
               {
                   _id: 'adgfjdgbrewhs234532nh',
@@ -106,7 +123,8 @@ export default {
                   blogCover: [{
                       imageUrl: 'post-1.jpg',
                       altDescp: 'Web design cover pic'
-                  }]
+                  }],
+                  isRead: true
               }
           ]
       }
