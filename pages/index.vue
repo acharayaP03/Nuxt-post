@@ -10,7 +10,7 @@
               <div class="title-box text-center">
                 <h3 class="title-a">Blog</h3>
                 <p class="subtitle-a">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  {{title}}
                 </p>
                 <div class="line-mf"></div>
               </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+
 import NavBar from '~/components/NavBar.vue'
 import PostItem from '~/components/Posts/PostItem.vue'
 export default {
@@ -72,71 +73,8 @@ export default {
   components: { NavBar, PostItem },
   data() {
     return {
-      postsData: [
-        {
-          _id: 'lkdsfkadhs234532naskldfh',
-          category: 'Web Design',
-          description:
-            'Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.',
-          title: 'See more ideas about Travel',
-          createdAt: new Date(),
-          authorDetail: [
-            {
-              name: 'Prabhakar Ac',
-              avatar: 'testimonial-2.jpg',
-            },
-          ],
-          blogCover: [
-            {
-              imageUrl: 'post-3.jpg',
-              altDescp: 'Web design cover pic',
-            },
-          ],
-          isRead: false,
-        },
-        {
-          _id: 'adgfjdgbrewh532nafh',
-          category: 'Web Design',
-          description:
-            'Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.',
-          title: 'See more ideas about Travel',
-          createdAt: new Date(),
-          authorDetail: [
-            {
-              name: 'Trishten Ac',
-              avatar: 'testimonial-2.jpg',
-            },
-          ],
-          blogCover: [
-            {
-              imageUrl: 'post-2.jpg',
-              altDescp: 'Web design cover pic',
-            },
-          ],
-          idRead: false,
-        },
-        {
-          _id: 'adgfjdgbrewhs234532nh',
-          category: 'Travel',
-          description:
-            'Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.',
-          title: 'See more ideas about Travel',
-          createdAt: new Date(),
-          authorDetail: [
-            {
-              name: 'Lily Vaidya (Ac)',
-              avatar: 'testimonial-4.jpg',
-            },
-          ],
-          blogCover: [
-            {
-              imageUrl: 'post-1.jpg',
-              altDescp: 'Web design cover pic',
-            },
-          ],
-          isRead: true,
-        },
-      ],
+      title: 'Here are the list of posts that are recently added.',
+      postsData: this.$store.state.posts
     }
   },
 }
