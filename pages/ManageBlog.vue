@@ -37,25 +37,13 @@
                   <h4 class="title-comments title-left">List of blogs</h4>
                 </div>
                 <ul class="list-comments">
-                  <li v-for="(post) in postsData" :key="post._id">
-                    <div    
-                        v-for="(image, i) in post.authorDetail"
-                        :key="i"
-                        class="comment-avatar"
-                    >
-                      <img 
-                        :src="require(`~/assets/img/${image.avatar}`)"
-                        :alt="image.author"
-                        />
-                    </div>
-                    <div class="comment-details">
-                      <h4 class="comment-author">{{ post.title }}</h4>
-                      <span>{{ new Date() | formateDate }}</span>
-                      <p>
-                        {{ post.description }}
-                      </p>
-                    </div>
-                  </li>
+                    <ListItem 
+                        v-for="post in $store.state.posts"
+                        :key="post._id"
+                        :author-detail="post.authorDetail" 
+                        :post-title="post.postTitle" 
+                        :description="post.description"
+                    />
                 </ul>
               </div>
             </div>
@@ -74,14 +62,18 @@ import NavBar from '~/components/NavBar.vue'
 import HeroContainer from '~/components/HeroContainer.vue'
 import SearchBar from '~/components/SearchBar.vue'
 import FooterComponent from '~/components/FooterComponent.vue'
+import ListItem from '~/components/Posts/ListItem.vue'
 export default {
   name: 'IndexPage',
-  components: { NavBar, HeroContainer, SearchBar, FooterComponent },
+  components: { NavBar, HeroContainer, SearchBar, FooterComponent, ListItem },
   data() {
     return {
       title: 'Here are the list of posts that are recently added.',
       postsData: this.$store.state.posts,
     }
+  },
+  created(){
+    console.log(this.postsData)
   },
 }
 </script>
