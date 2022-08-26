@@ -38,7 +38,7 @@
                 </div>
                 <ul class="list-comments">
                     <ListItem
-                        v-for="post in postsData"
+                        v-for="post in posts"
                         :key="post._id"
                         :author-detail="post.authorDetail"
                         :post-title="post.postTitle"
@@ -72,8 +72,13 @@ export default {
       postsData: []
     }
   },
-  async mounted(){
-    this.postsData = await this.$store.dispatch('fetchPosts');
+  fetch({ store}) {
+    return store.dispatch('posts/fetchPosts');
   },
+  computed:{
+    posts() {
+      return this.$store.state.posts.posts
+    }
+  }
 }
 </script>

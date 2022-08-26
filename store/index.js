@@ -1,14 +1,5 @@
 
-
-const  fetchPostApiSimulation  = (post) =>{
-  return new Promise((resolve, reject) =>{
-    setTimeout(() =>{
-      resolve(post)
-    }, 500)
-  })
-}
-
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   posts: [
     {
       _id: 'lkdsfkadhs234532naskldfh',
@@ -74,27 +65,4 @@ const INITIAL_STATE = {
       isRead: true,
     },
   ],
-}
-
-
-
-export const state = () => {
-    return{
-       posts: []
-    }
-}
-
-export const actions = {
-    async fetchPosts({ commit }) {
-      const posts = await fetchPostApiSimulation(INITIAL_STATE.posts)
-      commit('set_posts', INITIAL_STATE.state)
-      return posts;
-  }
-}
-
-
-export const mutations = {
-  set_posts(state, posts){
-    state.posts = posts
-  }
 }
