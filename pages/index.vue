@@ -52,8 +52,11 @@ export default {
   data() {
     return {
       title: 'Here are the list of posts that are recently added.',
-      postsData: this.$store.state.posts
+      postsData: []
     }
   },
+  async mounted() {
+    this.postsData = await this.$store.dispatch('fetchPosts')
+  }
 }
 </script>

@@ -37,11 +37,11 @@
                   <h4 class="title-comments title-left">List of blogs</h4>
                 </div>
                 <ul class="list-comments">
-                    <ListItem 
-                        v-for="post in $store.state.posts"
+                    <ListItem
+                        v-for="post in postsData"
                         :key="post._id"
-                        :author-detail="post.authorDetail" 
-                        :post-title="post.postTitle" 
+                        :author-detail="post.authorDetail"
+                        :post-title="post.postTitle"
                         :description="post.description"
                     />
                 </ul>
@@ -69,11 +69,11 @@ export default {
   data() {
     return {
       title: 'Here are the list of posts that are recently added.',
-      postsData: this.$store.state.posts,
+      postsData: []
     }
   },
-  created(){
-    console.log(this.postsData)
+  async mounted(){
+    this.postsData = await this.$store.dispatch('fetchPosts');
   },
 }
 </script>
