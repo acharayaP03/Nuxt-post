@@ -46,6 +46,8 @@
 import NavBar from '~/components/NavBar.vue'
 import PostItem from '~/components/Posts/PostItem.vue'
 import FooterComponent from '~/components/FooterComponent.vue'
+import { fetchPostApiSimulation } from "~/store/posts";
+
 export default {
   name: 'IndexPage',
   components: { NavBar, PostItem, FooterComponent },
@@ -55,8 +57,16 @@ export default {
       postsData: []
     }
   },
-  async mounted() {
-    this.postsData = await this.$store.dispatch('fetchPosts')
-  }
+  /**
+   * returns post data and assign it straight to components
+   * @returns {Promise<{postsData: unknown}>}
+   */
+  async asyncData() {
+    const postsData = await fetchPostApiSimulation()
+    return { postsData }
+  },
+  // async mounted() {
+  //   this.postsData = await this.$store.dispatch('posts/fetchPosts')
+  // }
 }
 </script>
