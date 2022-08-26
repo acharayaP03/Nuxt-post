@@ -18,7 +18,7 @@
           </div>
 
           <div class="row mb-5">
-            <div v-for="post in postsData" :key="post._id" class="col-md-4">
+            <div v-for="post in posts" :key="post._id" class="col-md-4">
               <PostItem
                 :id="post._id"
                 :title="post.title"
@@ -46,7 +46,7 @@
 import NavBar from '~/components/NavBar.vue'
 import PostItem from '~/components/Posts/PostItem.vue'
 import FooterComponent from '~/components/FooterComponent.vue'
-import { fetchPostApiSimulation } from "~/store/posts";
+
 
 export default {
   name: 'IndexPage',
@@ -61,12 +61,19 @@ export default {
    * returns post data and assign it straight to components
    * @returns {Promise<{postsData: unknown}>}
    */
-  async asyncData() {
-    const postsData = await fetchPostApiSimulation()
-    return { postsData }
+  // async asyncData() {
+  //   const postsData = await fetchPostApiSimulation()
+  //   return { postsData }
+  // },
+  fetch({ store }) {
+
+    console.log('fetching inside manage page')
+    return store.dispatch('posts/fetchPosts');
   },
-  // async mounted() {
-  //   this.postsData = await this.$store.dispatch('posts/fetchPosts')
-  // }
+  computed:{
+    posts(){
+      return this.$store.state.posts.posts
+    }
+  }
 }
 </script>
