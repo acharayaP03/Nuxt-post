@@ -1,11 +1,10 @@
 <template>
     <div class="widget-sidebar sidebar-search">
-        <h5 class="sidebar-title">Search</h5>
         <div class="sidebar-content">
             <form>
-            <div class="input-group">
-                <input 
-                    type="text" 
+            <div class="input-group p-2">
+                <input
+                    type="text"
                     class="form-control"
                     placeholder="Search for..."
                     aria-label="Search for..."
