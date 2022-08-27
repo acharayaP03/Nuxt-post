@@ -66,9 +66,10 @@ export default {
   //   return { postsData }
   // },
   fetch({ store }) {
-
-    console.log('fetching inside manage page')
-    return store.dispatch('posts/fetchPosts');
+    if(store.getters["posts/postsIsEmpty"]){
+      console.log('fetching inside index page')
+      return store.dispatch('posts/fetchPosts');
+    }
   },
   computed:{
     posts(){
