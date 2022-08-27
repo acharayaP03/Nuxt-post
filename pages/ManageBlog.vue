@@ -73,7 +73,9 @@ export default {
     }
   },
   fetch({ store}) {
-    return store.dispatch('posts/fetchPosts');
+    if(store.getters["posts/postsIsEmpty"]) {
+      return store.dispatch('posts/fetchPosts');
+    }
   },
   computed:{
     posts() {

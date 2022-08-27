@@ -16,10 +16,17 @@ export const state = () => {
   }
 }
 
+
+export const getters = {
+  postsIsEmpty(state){
+    return state.posts.length === 0;
+  }
+}
+
 export const actions = {
   async fetchPosts({ commit }) {
     const posts = await fetchPostApiSimulation()
-    commit('set_posts', INITIAL_STATE.posts)
+    commit('set_posts', posts)
     return posts;
   }
 }
