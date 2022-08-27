@@ -16,7 +16,15 @@
                         <div class="sidebar-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <Modal button-name="Create new post" modal-title="Create new post "/>
+                                  <Modal modal-title="Create new post ">
+                                    <template v-slot:actionButton>
+                                      <b-button
+                                        v-b-modal.bv-modal-example
+                                        class="button button-a button-big button-rouded"
+                                      >Create new Post</b-button>
+                                    </template>
+                                    <CreatePostForm />.
+                                  </Modal>
                                 </div>
                             </div>
                         </div>
@@ -58,9 +66,10 @@ import SearchBar from '~/components/SearchBar.vue'
 import FooterComponent from '~/components/FooterComponent.vue'
 import ListItem from '~/components/Posts/ListItem.vue';
 import Modal from "~/components/modal";
+import CreatePostForm from "~/components/Posts/CreatePostForm";
 export default {
   name: 'IndexPage',
-  components: { NavBar, HeroContainer, SearchBar, FooterComponent, ListItem, Modal },
+  components: {CreatePostForm, NavBar, HeroContainer, SearchBar, FooterComponent, ListItem, Modal },
   data() {
     return {
       title: 'Here are the list of posts that are recently added.',
