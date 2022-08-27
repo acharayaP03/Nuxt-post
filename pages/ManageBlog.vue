@@ -8,22 +8,15 @@
       <section class="blog-wrapper sect-pt4" id="blog">
         <div class="container">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <SearchBar />
             </div>
-          </div>
-            <div class="row">
                 <div class="col-md-4 ml-auto">
                     <div class="widget-sidebar sidebar-search">
                         <div class="sidebar-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button
-                                    type="submit"
-                                    class="button button-a button-big button-rouded"
-                                    >
-                                    Create new blog
-                                    </button>
+                                    <Modal button-name="Create new post" modal-title="Create new post "/>
                                 </div>
                             </div>
                         </div>
@@ -54,6 +47,7 @@
     </main>
     <!-- End #main -->
     <FooterComponent />
+
   </div>
 </template>
 
@@ -62,14 +56,16 @@ import NavBar from '~/components/NavBar.vue'
 import HeroContainer from '~/components/HeroContainer.vue'
 import SearchBar from '~/components/SearchBar.vue'
 import FooterComponent from '~/components/FooterComponent.vue'
-import ListItem from '~/components/Posts/ListItem.vue'
+import ListItem from '~/components/Posts/ListItem.vue';
+import Modal from "~/components/modal";
 export default {
   name: 'IndexPage',
-  components: { NavBar, HeroContainer, SearchBar, FooterComponent, ListItem },
+  components: { NavBar, HeroContainer, SearchBar, FooterComponent, ListItem, Modal },
   data() {
     return {
       title: 'Here are the list of posts that are recently added.',
-      postsData: []
+      postsData: [],
+      showModal: false
     }
   },
   fetch({ store}) {
@@ -77,10 +73,20 @@ export default {
       return store.dispatch('posts/fetchPosts');
     }
   },
-  computed:{
+  computed: {
     posts() {
       return this.$store.state.posts.posts
+    }
+  },
+  methods:{
+    toggleModal(){
+      this.showModal = true;
     }
   }
 }
 </script>
+<style scoped>
+.showmodal{
+  display: block;
+}
+</style>
