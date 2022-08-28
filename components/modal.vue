@@ -14,6 +14,7 @@
       </div>
       <hr class="mt-4">
       <b-button class="button button-a button-small"  @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+      <b-button class="button button-a button-small"  @click="resetForm">Submit</b-button>
     </b-modal>
   </div>
 </template>
@@ -34,11 +35,18 @@ export default {
     modalTitle:{
       type: String,
       default: ''
+    },
+    clearForm:{
+      type: Function,
+      default() {
+        return 'Default function'
+      }
     }
   },
   methods:{
-    toggleModal() {
-      this.isActive = true;
+    resetForm() {
+      this.$emit('form:action',{ closeModal: this.$bvModal.hide('bv-modal-example')})
+      this.clearForm()
     }
   }
 }
